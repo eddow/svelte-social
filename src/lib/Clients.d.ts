@@ -1,4 +1,4 @@
-type SocialProvider = keyof SocialData;
+type SocialProvider = keyof SocialIds;
 
 interface LoginToken {
 	provider: SocialProvider;
@@ -7,8 +7,9 @@ interface LoginToken {
 interface LoggedIn {
 	provider: SocialProvider;
 	email: string;
+	name?: string;
+	picture?: string;
 	verified?: boolean;
 	firstName?: string;
 	lastName?: string;
-	picture?: string;
 }

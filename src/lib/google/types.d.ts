@@ -1,5 +1,5 @@
 interface SocialIds {
-	google: string;
+	google?: string;
 }
 
 interface GoogleToken extends LoginToken {

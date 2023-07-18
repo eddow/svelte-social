@@ -9,7 +9,8 @@
 		"prepublishOnly": "npm run package",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
-		"lint": "eslint ."
+		"lint": "eslint .",
+		"certificates": "./certs.sh"
 	},
 	"exports": {
 		".": {
@@ -34,6 +35,8 @@
 		"eslint": "^8.28.0",
 		"eslint-plugin-svelte": "^2.30.0",
 		"publint": "^0.1.9",
+		"rollup-plugin-scss": "^4.0.0",
+		"sass": "^1.63.6",
 		"svelte": "^4.0.5",
 		"svelte-check": "^3.4.3",
 		"tslib": "^2.4.1",
@@ -45,6 +48,7 @@
 	"type": "module",
 	"dependencies": {
 		"@types/google.accounts": "^0.0.7",
+		"github-oauth-popup": "^1.2.0",
 		"google-auth-library": "^8.9.0"
 	}
 }

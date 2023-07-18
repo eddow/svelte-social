@@ -1,32 +1,32 @@
 <script lang="ts">
-import Socials from '$lib/Socials.svelte';
-import {clientIds} from './ids.ts';
+import { Socials } from '$lib/client.ts';
+import { clientIds } from './ids.ts';
 
 let loggedIn: LoggedIn|null = null;
-function token({detail}: CustomEvent) {
-	fetch('', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json'
-		},
-		body: JSON.stringify(detail)
-	}).then(res => {
-		if(res.ok) {
-			return res.json();
-		}
-		throw new Error('Log-in failure.');
-	}).then(res => {
-		loggedIn = <LoggedIn>res;
-	}).catch(err => {
+async function token({detail}: CustomEvent) {
+	try {
+		const ssLogin = await fetch('', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(detail)
+		});
+		if(!ssLogin.ok) throw new Error('Log-in failure.');
+		loggedIn = await ssLogin.json();
+	} catch(err) {
 		console.error(err);
-	});
+	}
 }
 </script>
-<Socials ids={clientIds} on:token={token} style="width: 200px; border: 1px solid black;" />
+<Socials inline ids={clientIds} on:token={token} style="width: 400px; border: 1px solid black;" googlePrompt={false} />
 {#if loggedIn}
 	<p>Logged in with {loggedIn.provider} as {loggedIn.email}.</p>
 	{#if loggedIn.verified !== undefined}
 		<input type="checkbox" checked={loggedIn.verified} readonly disabled /> Verified
+	{/if}
+	{#if loggedIn.name !== undefined}
+		<p>Name: {loggedIn.name}</p>
 	{/if}
 	{#if loggedIn.firstName !== undefined}
 		<p>First name: {loggedIn.firstName}</p>
@@ -37,5 +37,4 @@ function token({detail}: CustomEvent) {
 	{#if loggedIn.picture !== undefined}
 		<img src={loggedIn.picture} alt="Profile" />
 	{/if}
-
 {/if}
