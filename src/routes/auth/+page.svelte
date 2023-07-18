@@ -1,4 +1,4 @@
 <script lang="ts">
-	import { Auther } from '$lib/client.ts';
+	import { Auther } from 'svelte-social/client';
 </script>
 <Auther />

@@ -1,7 +1,7 @@
 import { json, error, type RequestEvent } from "@sveltejs/kit";
-import { socialsLogin } from "svelte-social/server.ts";
-import { clientIds } from "./ids.ts";
-import { clientSecrets } from "./secrets.server.ts";
+import { socialsLogin } from "svelte-social/server";
+import { clientIds } from "./ids";
+import { clientSecrets } from "./secrets.server";
 
 export async function POST(event: RequestEvent) {
 	const loggedIn = await socialsLogin(await event.request.json(), clientIds, clientSecrets);

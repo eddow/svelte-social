@@ -1,7 +1,7 @@
 <script lang="ts">
 	import GitHub from './GitHub/Button.svelte';
 	import Google from './Google/Button.svelte';
-	import { type Dictionary, defaultTexts } from './consts.ts'
+	import { type Dictionary, defaultTexts } from './consts'
 	import { createEventDispatcher, afterUpdate } from "svelte";
 
 	const dispatch = createEventDispatcher();

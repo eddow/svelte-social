@@ -1,5 +1,5 @@
-import googleLogin from "./Google/server.ts";
-import githubLogin from "./GitHub/server.ts";
+import googleLogin from "./Google/server";
+import githubLogin from "./GitHub/server";
 
 export default async function serverLogin(lt: LoginToken, ids: SocialIds, secrets: SocialSecrets) {
 	return {

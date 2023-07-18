@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from "svelte";
-	import { sizes, type Dictionary, getLocalized, defaultTexts } from './consts.ts'
+	import { sizes, type Dictionary, getLocalized, defaultTexts } from './consts'
 
 	const dispatch = createEventDispatcher();
 	export let

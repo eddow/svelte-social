@@ -1,6 +1,6 @@
 <script lang="ts">
-import { Socials } from 'svelte-social/client.ts';
-import { clientIds } from './ids.ts';
+import { Socials } from 'svelte-social/client';
+import { clientIds } from './ids';
 
 let loggedIn: LoggedIn|null = null;
 async function token({detail}: CustomEvent) {

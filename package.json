@@ -1,6 +1,6 @@
 {
 	"name": "svelte-social",
-	"version": "0.0.1",
+	"version": "0.0.4",
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build && npm run package",
@@ -15,9 +15,10 @@
 	"exports": {
 		".": {
 			"types": "./dist/index.d.ts",
-			"svelte": "./dist/client.js",
-			"import": "./dist/server.js"
-		}
+			"svelte": "./dist/client.js"
+		},
+		"./client": "./dist/client.js",
+		"./server": "./dist/server.js"
 	},
 	"files": [
 		"dist",
@@ -25,7 +26,7 @@
 		"!dist/**/*.spec.*"
 	],
 	"peerDependencies": {
-		"svelte": "^4.0.0"
+		"svelte": "^3.54.0 || ^4.0.0"
 	},
 	"devDependencies": {
 		"@sveltejs/adapter-auto": "^2.0.0",
@@ -49,7 +50,6 @@
 	"type": "module",
 	"dependencies": {
 		"@types/google.accounts": "^0.0.7",
-		"github-oauth-popup": "^1.2.0",
 		"google-auth-library": "^8.9.0"
 	}
 }

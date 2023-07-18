@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { createEventDispatcher, } from "svelte";
-	import { sizes, type Dictionary, getLocalized, defaultTexts } from '../consts.ts'
+	import { sizes, type Dictionary, getLocalized, defaultTexts } from '../consts'
 	import Button from '../Button.svelte';
-    import { loginPopup } from "$lib/popup.ts";
+    import { loginPopup } from "$lib/popup";
 
 	const dispatch = createEventDispatcher();
 	export let
