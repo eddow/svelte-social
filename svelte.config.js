@@ -13,9 +13,16 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
-			'svelte-social': './src/lib'
+			"svelte-social": './src/lib'
 		}
-	}
+	},
+    onwarn: (warning, handler) => {
+        const { code } = warning;
+        if (code === "css-unused-selector")
+            return;
+
+        handler(warning);
+    },
 };
 
 export default config;

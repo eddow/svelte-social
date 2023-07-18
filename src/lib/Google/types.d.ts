@@ -1,8 +1,10 @@
-interface SocialIds {
-	Google?: string;
-}
+declare namespace SvelteSocial {
+	interface SocialIds {
+		Google?: string;
+	}
 
-interface GoogleToken extends LoginToken {
-	provider: 'Google';
-	token: string;
+	interface GoogleToken extends LoginToken {
+		provider: 'Google';
+		token: string;
+	}
 }

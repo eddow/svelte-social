@@ -1,5 +1,5 @@
 
-export default async function serverLogin(lt: GitHubToken, clientId: string, clientSecret: string): Promise<LoggedIn|undefined> {
+export default async function serverLogin(lt: SvelteSocial.GitHubToken, clientId: string, clientSecret: string): Promise<SvelteSocial.LoggedIn|undefined> {
 	try {
 		console.assert(lt.provider === 'GitHub', 'Invalid provider');
 		try {

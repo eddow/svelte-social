@@ -22,7 +22,7 @@
 			scope: 'read:user'
 		}).then((v: any) => {
 			const {code} = <{code: string}>v;
-			dispatch('token', <GitHubToken>{provider: 'GitHub', token: code});
+			dispatch('token', <SvelteSocial.GitHubToken>{provider: 'GitHub', token: code});
 		}).catch(()=> {});
 	}
 </script>

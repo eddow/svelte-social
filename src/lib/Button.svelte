@@ -25,7 +25,7 @@
 
 <div
 	tabindex="0" role="button" aria-labelledby={provider+"-login-label"}
-	{style} class={`login-button ${size} ${shape} ${theme} ${type}`}
+	{style} class={`login-button ${size} ${shape} ${theme} ${type} logo-${logo_alignment}`}
 	on:click={click} on:keypress={click}
 >
 	<div class="content">

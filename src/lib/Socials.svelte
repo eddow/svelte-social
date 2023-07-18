@@ -39,10 +39,10 @@
 		locale: string|undefined = undefined,
 		texts: Dictionary = defaultTexts,
 		text: 'signin_with' | 'signup_with' | 'continue_with' | 'signin' = 'signin_with',
-		order: SocialProvider[] = [],
+		order: SvelteSocial.Provider[] = [],
 		googlePrompt: boolean = true,
 		inline: boolean = false;
-	let sClass = '', sStyle = '', cWidth: string | undefined, socialsList: SocialProvider[];
+	let sClass = '', sStyle = '', cWidth: string | undefined, socialsList: SvelteSocial.Provider[];
 	export {sClass as class, sStyle as style};
 	function token({detail}: CustomEvent) { dispatch('token', detail); }
 	const dftWidth = {
@@ -52,14 +52,14 @@
 	$: cWidth = width || dftWidth[type];
 	$: {
 		socialsList = order.concat(['Google', 'GitHub']);
-		(function() {
-			let already: Record<SocialProvider, boolean> = {};
+		{
+			let already: Partial<Record<SvelteSocial.Provider, boolean>> = {};
 			socialsList = socialsList.filter(s => {
 				if (already[s]) return false;
 				already[s] = true;
 				return true;
 			});
-		})();
+		};
 	}
 </script>
 <div class={`social-logins ${sClass}${inline?' inline':''}`} style={sStyle}>
@@ -68,7 +68,7 @@
 			<Google clientId={ids.Google} on:token={token} {type} theme={theme==='filled'?'filled_blue':theme} {size} {text} {shape} {logo_alignment}
 				{locale} prompt={googlePrompt} width={cWidth} />
 		{:else if social==='GitHub'}
-			<GitHub clientId={ids.GitHub} on:token={token} {type} {theme} {size} {text} {shape} {logo_alignment} {locale} width={cWidth} />
+			<GitHub clientId={ids.GitHub} on:token={token} {type} {theme} {size} {text} {shape} {logo_alignment} {locale} width={cWidth} {texts} />
 		{/if}
 	{/each}
 </div>

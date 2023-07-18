@@ -18,8 +18,8 @@ The component - either individual or `Socials` displays the login button(s). Onc
 - The server side calls the default server exported function (`xxxLogin`) with the token, the id(s) of the application and the secret(s) if needed. (`ids`/`secrets` for `Socials`, `id`/[`secret`] for individual ones)
 - The return value is of type:
 ```ts
-interface LoggedIn {	// Sorted from more probable to least probable
-	provider: SocialProvider; // Name of the provider
+interface SvelteSocial.LoggedIn {	// Sorted from more probable to least probable
+	provider: SvelteSocial.Provider; // Name of the provider
 	email: string;
 	name?: string;
 	picture?: string;	// URL
@@ -35,7 +35,7 @@ Either use each one separately (`Google`, `GitHub`, ...) providing its `clientId
 
 ```html
 <script lang="ts">
-import { Socials, Google } from 'svelte-social/client';
+import { Socials, Google } from "svelte-social";
 import { clientIds } from './ids';
 
 async function token({detail}: CustomEvent) {
@@ -63,15 +63,15 @@ Each `...Login` function takes a `LoginToken` given as the detail of the `token`
 
 ```ts
 import { /* ..., */type RequestEvent } from "@sveltejs/kit";
-import { socialsLogin, googleLogin } from "svelte-social/server";
+import { login, googleLogin } from "svelte-social";
 import { clientIds } from "./ids";
 import { clientSecrets } from "./secrets.server";
 
 // This is the request fetched manually in the client
 export async function POST(event: RequestEvent) {
-	const loggedIn: LoggedIn = await socialsLogin(await event.request.json(), clientIds, clientSecrets);
+	const loggedIn: SvelteSocial.LoggedIn = await login(await event.request.json(), clientIds, clientSecrets);	// Select the login procedure knowing the provider
 	// or //
-	const loggedIn: LoggedIn = await googleLogin(await event.request.json(), clientIds.Google);	// google login does not need a secret
+	const loggedIn: SvelteSocial.LoggedIn = await googleLogin(await event.request.json(), clientIds.Google);	// google login does not need a secret
 	// loggedIn contains at least the provider and the email
 	// return loggedIn ? json(loggedIn) : error(401, "Unauthorized");
 }
@@ -87,7 +87,7 @@ The page this authentication should render is static :
 ```html
 <!-- +page.svelte -->
 <script lang="ts">
-	import { Auther } from 'svelte-social/client';
+	import { Auther } from "svelte-social";
 </script>
 <Auther />
 ```
@@ -180,6 +180,7 @@ The authentication page should be available with https and configured in GitHub
 
 * The generic `Button.svelte` does not use the `theme: 'outline' | 'filled' | 'filled_black'` nor `logo_alignment: 'left' | 'center'`.
 * A windows `certs.cmd` equivalent
+* `svelte-social/client` and `svelte-social/server` are not recognised by VSCode
 * A lot of other social networks have to be implemented.
 
 > Please do not hesitate to PR your favorite social network!
