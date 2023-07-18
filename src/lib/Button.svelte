@@ -4,16 +4,16 @@
 
 	const dispatch = createEventDispatcher();
 	export let
-		texts: Dictionary = defaultTexts,
 		type: 'standard' | 'icon' = 'standard',
 		theme: 'outline' | 'filled' | 'filled_black' = 'outline',
 		size: 'small' | 'medium' | 'large' = 'medium',
+		texts: Dictionary = defaultTexts,
 		text: 'signin_with' | 'signup_with' | 'continue_with' | 'signin' = 'signin_with',
 		shape: 'rectangular' | 'pill' = 'pill',
 		// TODO: logo_alignment
 		logo_alignment: 'left' | 'center' = 'left',
 		width: string|undefined = undefined,
-		locale: string = 'en',
+		locale: string|null = null,
 		provider: string;
 	let pxsz: number, style: string;
 	$: pxsz = sizes[size];

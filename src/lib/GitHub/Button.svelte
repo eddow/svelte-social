@@ -15,14 +15,14 @@
 		shape: 'rectangular' | 'pill' = 'pill',
 		logo_alignment: 'left' | 'center' = 'left',
 		width: string|undefined = undefined,
-		locale: string = 'en';
+		locale: string|null = null;
 	function click() {
 		loginPopup('https://github.com/login/oauth/authorize', {
 			client_id: clientId!,
 			scope: 'read:user'
 		}).then((v: any) => {
 			const {code} = <{code: string}>v;
-			dispatch('token', <GitHubToken>{provider: 'github', token: code});
+			dispatch('token', <GitHubToken>{provider: 'GitHub', token: code});
 		}).catch(()=> {});
 	}
 </script>

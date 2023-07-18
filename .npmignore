@@ -1,10 +1,10 @@
-.DS_Store
+.*
+src
 node_modules
-/build
-/dist
-/.svelte-kit
-/package
+.svelte-kit
 .env.*
 vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 *.pem
+static
+*.config.jstsconfig.json

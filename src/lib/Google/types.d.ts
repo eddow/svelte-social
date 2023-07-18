@@ -1,8 +1,8 @@
 interface SocialIds {
-	google?: string;
+	Google?: string;
 }
 
 interface GoogleToken extends LoginToken {
-	provider: 'google';
+	provider: 'Google';
 	token: string;
 }

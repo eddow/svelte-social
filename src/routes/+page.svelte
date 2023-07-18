@@ -1,5 +1,5 @@
 <script lang="ts">
-import { Socials } from '$lib/client.ts';
+import { Socials } from 'svelte-social/client.ts';
 import { clientIds } from './ids.ts';
 
 let loggedIn: LoggedIn|null = null;

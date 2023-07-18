@@ -1,6 +1,7 @@
 <script lang="ts">
-	import GitHub from './github/Button.svelte';
-	import Google from './google/Button.svelte';
+	import GitHub from './GitHub/Button.svelte';
+	import Google from './Google/Button.svelte';
+	import { type Dictionary, defaultTexts } from './consts.ts'
 	import { createEventDispatcher, afterUpdate } from "svelte";
 
 	const dispatch = createEventDispatcher();
@@ -25,19 +26,6 @@
 		size: 'small' | 'medium' | 'large' = 'medium',
 
 		/**
-		 * The button text. The default value is signin_with.
-		 * There are no visual differences for the text of icon buttons that
-		 * have different text attributes. The only exception is when the
-		 * text is read for screen accessibility.
-		 *
-		 * signin_with  The button text is “Sign in with Google”:
-		 * signup_with  The button text is “Sign up with Google”:
-		 * continue_with  The button text is “Continue with Google”:
-		 * signup_with  The button text is “Sign in”:
-		 */
-		text: 'signin_with' | 'signup_with' | 'continue_with' | 'signin' = 'signin_with',
-
-		/**
 		 * The button shape. The default value is rectangular.
 		 */
 		shape: 'rectangular' | 'pill' = 'pill',
@@ -49,9 +37,12 @@
 		 */
 		logo_alignment: 'left' | 'center' = 'center',
 		locale: string|undefined = undefined,
+		texts: Dictionary = defaultTexts,
+		text: 'signin_with' | 'signup_with' | 'continue_with' | 'signin' = 'signin_with',
+		order: SocialProvider[] = [],
 		googlePrompt: boolean = true,
 		inline: boolean = false;
-	let sClass = '', sStyle = '', cWidth: string | undefined;
+	let sClass = '', sStyle = '', cWidth: string | undefined, socialsList: SocialProvider[];
 	export {sClass as class, sStyle as style};
 	function token({detail}: CustomEvent) { dispatch('token', detail); }
 	const dftWidth = {
@@ -59,11 +50,27 @@
 		icon: '30px'
 	}
 	$: cWidth = width || dftWidth[type];
+	$: {
+		socialsList = order.concat(['Google', 'GitHub']);
+		(function() {
+			let already: Record<SocialProvider, boolean> = {};
+			socialsList = socialsList.filter(s => {
+				if (already[s]) return false;
+				already[s] = true;
+				return true;
+			});
+		})();
+	}
 </script>
 <div class={`social-logins ${sClass}${inline?' inline':''}`} style={sStyle}>
-	<Google clientId={ids.google} on:token={token} {type} theme={theme==='filled'?'filled_blue':theme} {size} {text} {shape} {logo_alignment}
-		{locale} prompt={googlePrompt} width={cWidth} />
-	<GitHub clientId={ids.github} on:token={token} {type} {theme} {size} {text} {shape} {logo_alignment} {locale} width={cWidth} />
+	{#each socialsList as social}
+		{#if social==='Google'}
+			<Google clientId={ids.Google} on:token={token} {type} theme={theme==='filled'?'filled_blue':theme} {size} {text} {shape} {logo_alignment}
+				{locale} prompt={googlePrompt} width={cWidth} />
+		{:else if social==='GitHub'}
+			<GitHub clientId={ids.GitHub} on:token={token} {type} {theme} {size} {text} {shape} {logo_alignment} {locale} width={cWidth} />
+		{/if}
+	{/each}
 </div>
 <style lang="scss" global>
 	.social-logins.inline {

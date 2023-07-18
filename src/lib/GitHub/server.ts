@@ -1,12 +1,7 @@
-import { fromQuery } from "$lib/urls.ts";
 
 export default async function serverLogin(lt: GitHubToken, clientId: string, clientSecret: string): Promise<LoggedIn|undefined> {
-	try {/*
-		const ticket = await client.verifyIdToken({
-			idToken: token,
-			audience: clientId
-		});
-		const rv = ticket.getPayload();*/
+	try {
+		console.assert(lt.provider === 'GitHub', 'Invalid provider');
 		try {
 			const bearing = await fetch('https://github.com/login/oauth/access_token', {
 				method: 'POST',
@@ -21,7 +16,7 @@ export default async function serverLogin(lt: GitHubToken, clientId: string, cli
 				})
 			});
 			if(!bearing.ok) throw new Error('Log-in failure.');
-			const bearingData = await bearing.formData(); //fromQuery(await bearing.text(), '&', decodeURIComponent);
+			const bearingData = await bearing.formData();
 			if(bearingData.get('error')) throw new Error(<string>bearingData.get('error'));
 			const emails = await fetch('https://api.github.com/user', {
 				method: 'GET',
@@ -41,14 +36,5 @@ export default async function serverLogin(lt: GitHubToken, clientId: string, cli
 		} catch(err) {
 			console.error(err);
 		}
-		/*
-		return rv && {
-			provider: 'google',
-			email: rv.email!,
-			firstName: rv.given_name,
-			lastName: rv.family_name,
-			verified: rv.email_verified,
-			picture: rv.picture
-		};*/
 	} catch (e) { /* returns `undefined` */ }
 }

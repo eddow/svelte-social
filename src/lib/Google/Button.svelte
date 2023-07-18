@@ -20,7 +20,7 @@
 	if(typeof google !== 'undefined') {
 		afterUpdate(() => {
 			const handleCredentialResponse = (response: any) => {
-				dispatch('token', {provider: 'google', token: response.credential});
+				dispatch('token', {provider: 'Google', token: response.credential});
 			};
 			google.accounts.id.initialize({
 				client_id: clientId!,

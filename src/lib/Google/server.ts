@@ -3,14 +3,14 @@ const client = new OAuth2Client();
 
 export default async function serverLogin(lt: GoogleToken, clientId: string): Promise<LoggedIn|undefined> {
 	try {
-		console.assert(lt.provider === 'google', 'Invalid provider');
+		console.assert(lt.provider === 'Google', 'Invalid provider');
 		const ticket = await client.verifyIdToken({
 			idToken: lt.token,
 			audience: clientId
 		});
 		const rv = ticket.getPayload();
 		return rv && {
-			provider: 'google',
+			provider: 'Google',
 			email: rv.email!,
 			firstName: rv.given_name,
 			lastName: rv.family_name,

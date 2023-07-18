@@ -1,12 +1,12 @@
 interface SocialIds {
-	github?: string;
+	GitHub?: string;
 }
 
 interface SocialSecrets {
-	github?: string;
+	GitHub?: string;
 }
 
 interface GitHubToken extends LoginToken {
-	provider: 'github';
+	provider: 'GitHub';
 	token: string;
 }
